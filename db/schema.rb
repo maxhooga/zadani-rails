@@ -32,8 +32,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_12_154304) do
     t.datetime "deleted_at", precision: nil
   end
 
-# Could not dump table "invoices" because of following StandardError
-#   Unknown type 'virtual' for column 'state'
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "subscription_id"
+    t.string "number"
+    t.datetime "issued_on", precision: nil
+    t.datetime "due_on", precision: nil
+    t.string "means_of_payment", default: "cash"
+    t.float "total"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "paid_at", precision: nil
+    t.datetime "submitted_at", precision: nil
+    t.datetime "deleted_at", precision: nil
+    t.string "state", default: "draft"
+    t.integer "recurring_profile_id"
+    t.index ["recurring_profile_id"], name: "index_invoices_on_recurring_profile_id"
+  end
 
   create_table "prismic_posts", id: :string, force: :cascade do |t|
     t.string "uid"

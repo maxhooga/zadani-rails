@@ -12,7 +12,7 @@ class CreateInvoicesTable < ActiveRecord::Migration[7.0]
       t.datetime "paid_at", precision: nil
       t.datetime "submitted_at", precision: nil
       t.datetime "deleted_at", precision: nil
-      t.virtual "state", type: :integer, as: "\nCASE\n    WHEN (paid_at IS NOT NULL) THEN 1\n    WHEN (submitted_at IS NOT NULL) THEN 2\n    ELSE 5\nEND", stored: true
+      t.string "state", default: "draft"
     end
 
     create_table "invoice_lines", force: :cascade do |t|

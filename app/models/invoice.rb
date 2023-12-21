@@ -1,4 +1,20 @@
 class Invoice < ApplicationRecord
+  include AASM
+
+  aasm column: :state do
+    state :draft, initial: true
+    state :submitted
+    state :paid
+
+    event :submit do
+      transitions from: :draft, to: :submitted
+    end
+
+    event :mark_as_paid do
+      transitions from: :submitted, to: :paid
+    end
+  end
+
   attribute :issued_on,    :date, default: -> { Time.zone.today }
   attribute :due_on,       :date, default: -> { Time.zone.today }
   attribute :tax_point_on, :date, default: -> { Time.zone.today }
@@ -18,7 +34,7 @@ class Invoice < ApplicationRecord
 
   before_save :calculate_total
 
-  include Recurringable
+include Recurringable
 
   class << self
     def increment_number(number)

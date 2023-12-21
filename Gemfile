@@ -38,3 +38,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+# enum in rails
+gem 'aasm'
+# timer
+gem 'whenever', require: false

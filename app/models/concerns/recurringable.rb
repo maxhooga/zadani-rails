@@ -10,5 +10,6 @@ module Recurringable
   end
 
   def build_next_recurring_draft_if_necessary
+
   end
 end
